@@ -9,6 +9,8 @@ on:
   
 jobs:
   ci:
+    outputs:
+      commit_id: ${{ env.COMMIT_ID }}
     runs-on: ubuntu-latest
     steps:
     - name: Declare some Variables
@@ -31,12 +33,27 @@ jobs:
     needs: ci
     runs-on: self-hosted
     steps:
+    - uses: actions/checkout@v3
+
+    - name: MOdify values file
+      shell: bash
+      run: |
+        echo ${{needs.ci.outputs.commit_id}} 
+        pip install yq
+        yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/python-app/values.yaml'
+
+    - name: Commit Changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}'
+
     - name: Install Argocd
       shell: bash
       run: |
         curl -ksSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
         chmod +x argocd
         sudo mv ./argocd /usr/local/bin/argocd
+    
 
     - name: Argocd app sync
       shell: bash
