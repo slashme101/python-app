@@ -4,11 +4,12 @@ import datetime
 
 app = Flask(__name__)
 
-@app.route('/api/v1/details')
+@app.route('/api/v1/info')
 
-def details():
+def info():
     return jsonify({
         'time': datetime.datetime.now().strftime("%I:%M:%S%p on %B %d, %Y"),
+        'deployed from': 'kubernetes',
         'hostname': socket.gethostname(),
         'message': 'You are doing great Rodney!! :)!!!'
     })
