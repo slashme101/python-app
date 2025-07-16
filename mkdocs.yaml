@@ -1,0 +1,14 @@
+site_name: 'Python-App'
+site_description: 'Main documentation for the Python-App.'
+repo_url: https://github.com/slashme101/python-app
+edit_uri: edit/main/docs
+
+plugins:
+  - techdocs-core
+  - redirects:
+      
+
+# For sidebar navigation on https://backstage.io/, see `microsite/sidebars.js`
+nav:
+  - Overview:
+      - Getting started?: 'docs/index.md'
