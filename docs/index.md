@@ -1,3 +1,8 @@
+---
+title: Python App Documentation
+description: Documentation for the Python application and its endpoints.
+---
+
 #  Documents for Python-App
 
 This application has two endpoints:
